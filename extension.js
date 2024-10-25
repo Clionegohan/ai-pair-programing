@@ -14,17 +14,21 @@ async function askAI(prompt) {
 		{ headers: { Authorization: `Bearer ${apiKey}`}}
 	);
 	return response.data.choices[0].text.trim();
-	
 }
 
-
 function activate(context) {
+	let disposable = vscode.commands.registerCommand('ai-pair-programing.askAI', async () => {
+		const editor = vscode.window.activeTextEditor;
+		if (!editor) return;
 
-	console.log('Congratulations, your extension "ai-pair-programing" is now active!');
+		const selection = editor.selections;
+		const code = editor.document.getText(selection);
 
-	const disposable = vscode.commands.registerCommand('ai-pair-programing.helloWorld', function () {
-		
-		vscode.window.showInformationMessage('Hello World from ai-pair-programing!');
+		vscode.window.showInformationMessage('AIが提案を考えています・・・');
+
+		const suggestion = await askAI(`このコードの改善案を教えて: \n\n${code}`);
+
+		vscode.window.showInformationMessage(`AIからの提案: ${suggestion}`);
 	});
 
 	context.subscriptions.push(disposable);
