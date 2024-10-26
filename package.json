@@ -9,13 +9,15 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:ai-pair-programming.askAI"
+  ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "ai-pair-programing.helloWorld",
-        "title": "Hello World"
+        "command": "ai-pair-programming.askAI",
+        "title": "Ask AI for Code Suggestions"
       }
     ]
   },
@@ -33,6 +35,8 @@
     "eslint": "^9.13.0"
   },
   "dependencies": {
-    "axios": "^1.7.7"
+    "@google/generative-ai": "^0.21.0",
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5"
   }
 }
